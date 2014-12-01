@@ -28,7 +28,7 @@ Although the CLI looks for a `LICENSE` or `LICENSE-MIT` file by default, but you
 ```js
 var year = require('update-year');
 ```
-### [updateYear](index.js#L41)
+### [year](index.js#L41)
 
 Update the year in the given `string`. If no dates are explicitly passed, the year will automatically be updated from the previous year to the current year.
 

@@ -8,13 +8,13 @@
 'use strict';
 
 var extend = require('extend-shallow');
-var year = require('year');
+var updateYear = require('year');
 
 /**
- * Expose `updateYear`
+ * Expose `year`
  */
 
-module.exports = updateYear;
+module.exports = year;
 
 /**
  * Update the year in the given `string`. If no dates are explicitly passed,
@@ -38,12 +38,12 @@ module.exports = updateYear;
  * @api public
  */
 
-function updateYear(str, options) {
+function year(str, options) {
   if (typeof str !== 'string') {
     throw new TypeError('update-year expects a string as the first argument');
   }
 
-  var current = +year();
+  var current = +updateYear();
   var opts = extend({to: current, from: current - 1}, options);
   var match;
 
