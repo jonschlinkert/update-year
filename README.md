@@ -8,19 +8,26 @@
 npm i update-year --save
 ```
 
-## Run tests
+## CLI
+
+In the command line, to automatically update a `LICENSE` or `LICENSE-MIT` file to the current year, run:
 
 ```bash
-npm test
+year
 ```
 
-## Usage
+Although the CLI looks for a `LICENSE` or `LICENSE-MIT` file by default, but you can use any file pattern you want.
+
+ - `p`|`pattern`: glob pattern for the file to read
+ - `f`|`from`: the old year
+ - `t`|`to`: the new year
+
+
+## API
 
 ```js
 var year = require('update-year');
 ```
-
-## API
 ### [updateYear](index.js#L41)
 
 Update the year in the given `string`. If no dates are explicitly passed, the year will automatically be updated from the previous year to the current year.
@@ -42,20 +49,12 @@ year('Copyright (c) 2012 Jon Schlinkert', {from: 2012})
 ```
 
 
-## CLI
 
-In the command line, to automatically update a `LICENSE` or `LICENSE-MIT` file to the current year, run:
+## Run tests
 
 ```bash
-year
+npm test
 ```
-
-Although the CLI looks for a `LICENSE` or `LICENSE-MIT` file by default, but you can use any file pattern you want.
-
- - `p`|`pattern`: glob pattern for the file to read
- - `f`|`from`: the old year
- - `t`|`to`: the new year
-
 
 ## Contributing
 Pull requests and stars are always welcome. For bugs and feature requests, [please create an issue](https://github.com/jonschlinkert/update-year/issues)
