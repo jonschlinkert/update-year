@@ -7,49 +7,56 @@
 
 'use strict';
 
-var extend = require('extend-shallow');
-var updateYear = require('year');
+var unique = require('array-unique');
+var year = require('year')();
 
-/**
- * Expose `year`
- */
-
-module.exports = year;
-
-/**
- * Update the year in the given `string`. If no dates are explicitly passed,
- * the year will automatically be updated from the previous year to the
- * current year.
- *
- * You can also pass the old year, `from`, and or the new year, `to` on the the options.
- *
- * **Example**
- *
- * ```js
- * year('Copyright (c) 2012 Jon Schlinkert', {from: 2012})
- * //=> 'Copyright (c) 2014 Jon Schlinkert'
- * ```
- *
- * @param {String} `string`
- * @param {Object} `options`
- *   @option {String} [options] `from` The old year
- *   @option {String} [options] `to` The new year
- * @return {String}
- * @api public
- */
-
-function year(str, options) {
+module.exports = function updateYear(str) {
   if (typeof str !== 'string') {
     throw new TypeError('update-year expects a string as the first argument');
   }
 
-  var current = +updateYear();
-  var opts = extend({to: current, from: current - 1}, options);
-  var match;
+  var arr = str.split(/[,\s]+/).filter(Boolean);
+  var len = arr.length;
+  var res = arr.slice();
+  var ele = arr.slice(-1)[0];
 
-  while(match = new RegExp(opts.from).exec(str)) {
-    str = str.replace(match[0], opts.to);
+  if (len === 1 && +ele === +year - 1) {
+    return [arr[0], year].join('-');
   }
 
-  return str;
+  if (ele.indexOf('-') !== -1) {
+    var years = ele.split('-');
+    var last = years.slice(-1);
+    if (+last === +year) {
+      return str;
+    } else if (+last === +year - 1) {
+      ele = [years[0], year].join('-');
+      res.splice(-1, 1, ele);
+    }
+  }
+
+  if (arr.length === 1 && res[0] == str) {
+    res.push(year);
+  } else if (res.join(', ') === str) {
+    res.push(year);
+  }
+
+  return unique(res).join(', ');
 }
+
+
+module.exports.match = function matchYears(str) {
+  var re = /((?:19|20)[0-9]{2}(?:[\d-]|\sto\s)*)/g;
+  var lines = str.split(/[\r\n]+/);
+  var len = lines.length, i = -1;
+  var res = [];
+
+  while (len--) {
+    var line = lines[++i];
+    var match = line.match(re);
+    if (match) {
+      res.push(match.join(', '));
+    }
+  }
+  return res;
+};
