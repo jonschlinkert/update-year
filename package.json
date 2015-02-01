@@ -1,7 +1,7 @@
 {
   "name": "update-year",
   "description": "Update a year or range of years in a string.",
-  "version": "0.3.0",
+  "version": "0.5.0",
   "homepage": "https://github.com/jonschlinkert/update-year",
   "author": {
     "name": "Jon Schlinkert",
