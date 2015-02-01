@@ -1,7 +1,7 @@
 {
   "name": "update-year",
-  "description": "Update the year in a string. API and CLI.",
-  "version": "0.1.0",
+  "description": "Update a year or range of years in a string.",
+  "version": "0.3.0",
   "homepage": "https://github.com/jonschlinkert/update-year",
   "author": {
     "name": "Jon Schlinkert",
@@ -19,10 +19,9 @@
     "url": "https://github.com/jonschlinkert/update-year/blob/master/LICENSE-MIT"
   },
   "main": "index.js",
-  "preferGlobal": true,
-  "bin": {
-    "year": "./cli.js"
-  },
+  "files": [
+    "index.js"
+  ],
   "engines": {
     "node": ">=0.10.0"
   },
@@ -30,17 +29,16 @@
     "test": "mocha -R spec"
   },
   "dependencies": {
-    "arr": "^0.1.5",
-    "extend-shallow": "^0.1.1",
-    "look-up": "^0.2.0",
-    "minimist": "^1.1.0",
-    "verbalize": "^0.1.2",
-    "write": "^0.1.1",
+    "array-unique": "^0.1.1",
     "year": "^0.2.1"
   },
   "devDependencies": {
     "mocha": "*",
     "should": "*"
   },
-  "keywords": []
+  "keywords": [
+    "parse",
+    "update",
+    "year"
+  ]
 }
