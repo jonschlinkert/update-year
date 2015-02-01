@@ -20,9 +20,14 @@ module.exports = function updateYear(str) {
   var res = arr.slice();
   var ele = arr.slice(-1)[0];
 
+  if (arr.length === 1 && +arr[0] === +year) {
+    return str;
+  }
+
   if (len === 1 && +ele === +year - 1) {
     return [arr[0], year].join('-');
   }
+
 
   if (ele.indexOf('-') !== -1) {
     var years = ele.split('-');
@@ -35,17 +40,17 @@ module.exports = function updateYear(str) {
     }
   }
 
-  if (arr.length === 1 && res[0] == str) {
-    res.push(year);
-  } else if (res.join(', ') === str) {
-    res.push(year);
+  var updated = unique(res).join(', ');
+
+  if (updated === str && updated.indexOf(year) === -1) {
+    return updated + '-' + year;
   }
 
-  return unique(res).join(', ');
+  return updated;
 }
 
 
-module.exports.match = function matchYears(str) {
+module.exports.matchRange = function matchRange(str) {
   var re = /((?:19|20)[0-9]{2}(?:[\d-]|\sto\s)*)/g;
   var lines = str.split(/[\r\n]+/);
   var len = lines.length, i = -1;
