@@ -21,19 +21,19 @@ describe('update year', function () {
     update('2014').should.equal('2014-2015');
   });
 
-  it.only('should add a dash between the last year and the current year:', function () {
-    update('2009, 2012').should.equal('2009, 2012-2015');
-    update('2010, 2013').should.equal('2010, 2013-2015');
-    update('2012').should.equal('2012-2015');
-    update('2013').should.equal('2013-2015');
+  it('should add a dash between the last year and the current year:', function () {
+    update('2009, 2014').should.equal('2009, 2014-2015');
+    update('2010, 2014').should.equal('2010, 2014-2015');
+    update('2014').should.equal('2014-2015');
+    update('2014').should.equal('2014-2015');
   });
 
   it('should add a comma between non-sequential years:', function () {
     update('2012').should.equal('2012, 2015');
     update('2013').should.equal('2013, 2015');
-    update('1999, 2001').should.equal('1999, 2001-2015');
+    update('1999, 2001').should.equal('1999, 2001, 2015');
     update('1999-2001').should.equal('1999-2001, 2015');
-    update('1999-2001, 2009').should.equal('1999-2001, 2009-2015');
+    update('1999-2001, 2009').should.equal('1999-2001, 2009, 2015');
   });
 
   it('should update the last year in a range to be the current year:', function () {
@@ -43,15 +43,15 @@ describe('update year', function () {
   });
 
   it('readme examples:', function () {
-    update('2012').should.equal('2012-2015');
-    update('2013').should.equal('2013-2015');
+    update('2012').should.equal('2012, 2015');
+    update('2013').should.equal('2013, 2015');
     update('2014').should.equal('2014-2015');
     update('2015').should.equal('2015');
-    update('2013, 2015').should.equal('2013-2015');
+    update('2013, 2015').should.equal('2013, 2015');
     update('2014-2015').should.equal('2014-2015');
-    update('1999, 2001').should.equal('1999, 2001-2015');
+    update('1999, 2001').should.equal('1999, 2001, 2015');
     update('1999-2001').should.equal('1999-2001, 2015');
-    update('1999-2001, 2009').should.equal('1999-2001, 2009-2015');
+    update('1999-2001, 2009').should.equal('1999-2001, 2009, 2015');
   });
 });
 
