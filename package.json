@@ -1,7 +1,7 @@
 {
   "name": "update-year",
   "description": "Update or add the current year to a range of years in a string.",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "homepage": "https://github.com/jonschlinkert/update-year",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/update-year",
