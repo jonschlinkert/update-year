@@ -7,48 +7,59 @@
 
 'use strict';
 
-var unique = require('array-unique');
-var year = require('year')();
+var year = +require('year')();
 
 module.exports = function updateYear(str) {
-  if (typeof str !== 'string') {
-    throw new TypeError('update-year expects a string as the first argument');
+  str = String(str);
+  var segs = str.split(', ');
+  var len = segs.length;
+
+  if (len === 1 && !/-/.test(str)) {
+    return createRange(str, year);
   }
 
-  var arr = str.split(/[,\s]+/).filter(Boolean);
-  var len = arr.length;
-  var res = arr.slice();
-  var ele = arr.slice(-1)[0];
-
-  if (arr.length === 1 && +arr[0] === +year) {
+  if (+segs[len - 1] === year) {
     return str;
   }
 
-  if (len === 1 && +ele === +year - 1) {
-    return [arr[0], year].join('-');
+  var last = segs.pop();
+  var prefix = createPrefix(segs, last);
+
+  var years = last.split('-');
+  len = years.length;
+
+  if (len === 1) {
+    return prefix + createRange(+last, year);
   }
 
-
-  if (ele.indexOf('-') !== -1) {
-    var years = ele.split('-');
-    var last = years.slice(-1);
-    if (+last === +year) {
-      return str;
-    } else if (+last === +year - 1) {
-      ele = [years[0], year].join('-');
-      res.splice(-1, 1, ele);
-    }
+  if (+years[len - 1] === year - 1) {
+    return prefix + years[0] + '-' + year;
   }
+  return prefix + last + ', ' + year;
+};
 
-  var updated = unique(res).join(', ');
-
-  if (updated === str && updated.indexOf(year) === -1) {
-    return updated + '-' + year;
+function createPrefix(segs, last) {
+  if (segs.length === 0) {
+    return '';
   }
-
-  return updated;
+  if (segs.length === 1 && last) {
+    return segs[0] + ', ';
+  }
+  return segs.join(', ') + ', ';
 }
 
+function createRange(num, year) {
+  num = +num;
+  if (num === year) {
+    return year;
+  }
+  if (num === (year - 1)) {
+    return num + '-' + year;
+  }
+  if (num < year) {
+    return num + ', ' + year;
+  }
+}
 
 module.exports.matchRange = function matchRange(str) {
   var re = /((?:19|20)[0-9]{2}(?:[\d-]|\sto\s)*)/g;
