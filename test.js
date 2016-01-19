@@ -26,6 +26,18 @@ describe('update year', function() {
     update('2009, 2015').should.equal('2009, 2015-2016');
   });
 
+  it('should not duplicate the current year', function() {
+    update('2016').should.equal('2016');
+    update('2015-2016').should.equal('2015-2016');
+    update('2016-2016').should.equal('2016');
+    update('2016, 2016').should.equal('2016');
+  });
+
+  it('should fix incorrectly comma-separated range', function() {
+    update('2015, 2016').should.equal('2015-2016');
+    update('2013, 2015, 2016').should.equal('2013, 2015-2016');
+  });
+
   it('should add a comma when more than 1 year has passed', function() {
     update('1999-2001, 2009').should.equal('1999-2001, 2009, 2016');
     update('1999, 2001').should.equal('1999, 2001, 2016');

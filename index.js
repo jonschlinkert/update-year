@@ -7,25 +7,38 @@
 
 'use strict';
 
+var unique = require('array-unique');
 var year = +require('year')();
 
 module.exports = function updateYear(str) {
   str = String(str);
-  var segs = str.split(', ');
+  var segs = unique(str.split(', '));
   var len = segs.length;
+
+  if (len === 1 && +segs[0] === year) {
+    return segs[0];
+  }
 
   if (len === 1 && !/-/.test(str)) {
     return createRange(str, year);
   }
 
+  if (len > 1 && +segs[len - 1] === year) {
+    segs.pop();
+    len--;
+  }
+
   if (+segs[len - 1] === year) {
+    if (+segs[0] === year - 1) {
+      return segs.join('-');
+    }
     return str;
   }
 
   var last = segs.pop();
   var prefix = createPrefix(segs, last);
 
-  var years = last.split('-');
+  var years = unique(last.split('-') || []);
   len = years.length;
 
   if (len === 1) {
@@ -35,6 +48,11 @@ module.exports = function updateYear(str) {
   if (+years[len - 1] === year - 1) {
     return prefix + years[0] + '-' + year;
   }
+
+  if (+years[len - 1] === year) {
+    return prefix + last;
+  }
+
   return prefix + last + ', ' + year;
 };
 
@@ -49,9 +67,10 @@ function createPrefix(segs, last) {
 }
 
 function createRange(num, year) {
+  if (!num) return year;
   num = +num;
   if (num === year) {
-    return year;
+    return String(year);
   }
   if (num === (year - 1)) {
     return num + '-' + year;
