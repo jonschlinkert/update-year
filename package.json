@@ -1,38 +1,29 @@
 {
   "name": "update-year",
-  "description": "Update a year or range of years in a string.",
+  "description": "Update or add the current year to a range of years in a string.",
   "version": "0.5.0",
   "homepage": "https://github.com/jonschlinkert/update-year",
-  "author": {
-    "name": "Jon Schlinkert",
-    "url": "https://github.com/jonschlinkert"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/jonschlinkert/update-year.git"
-  },
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/update-year",
   "bugs": {
     "url": "https://github.com/jonschlinkert/update-year/issues"
   },
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/jonschlinkert/update-year/blob/master/LICENSE-MIT"
-  },
-  "main": "index.js",
+  "license": "MIT",
   "files": [
     "index.js"
   ],
+  "main": "index.js",
   "engines": {
     "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "mocha -R spec"
+    "test": "mocha"
   },
   "dependencies": {
-    "array-unique": "^0.1.1",
     "year": "^0.2.1"
   },
   "devDependencies": {
+    "gulp-format-md": "^0.1.5",
     "mocha": "*",
     "should": "*"
   },
@@ -40,5 +31,18 @@
     "parse",
     "update",
     "year"
-  ]
+  ],
+  "verb": {
+    "related": {
+      "list": [
+        "month",
+        "update-copyright",
+        "year"
+      ]
+    },
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "layout": "default"
+  }
 }
