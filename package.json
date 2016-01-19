@@ -1,7 +1,7 @@
 {
   "name": "update-year",
   "description": "Update or add the current year to a range of years in a string.",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "homepage": "https://github.com/jonschlinkert/update-year",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/update-year",
@@ -20,6 +20,7 @@
     "test": "mocha"
   },
   "dependencies": {
+    "array-unique": "^0.2.1",
     "year": "^0.2.1"
   },
   "devDependencies": {
